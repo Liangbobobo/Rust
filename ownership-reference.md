@@ -69,6 +69,7 @@ Keeping track of what parts of code are using what data on the heap, minimizing 
 如上，s是一个字符串切片，类型是&str，它是一个指向只读内存的胖指针（指针 + 长度），它具有静态生命周期（&'static str），是不可变的，是 Rust 中处理文本数据的主要借用形式，常用于函数参数。
 
 s本身存储在栈上，字符串字面量 "hello" 是硬编码在程序代码中的（hardcoded into the text of our program）。当你编译程序时，这个字符串的字节数据（h, e, l, l, o）会被直接嵌入到最终生成的二进制可执行文件中一个叫做只读数据段（或称为静态存储区）的特殊区域。当程序运行时，操作系统会将这个只读数据段加载到内存中，并保护起来防止修改。
+
 ```
 +-------------------+
 |     栈 (Stack)     |  ← 栈指针向下增长
@@ -98,6 +99,7 @@ s本身存储在栈上，字符串字面量 "hello" 是硬编码在程序代码�
 | 代码段 (.text)      | ← 程序的机器指令
 +-------------------+
 ```
+
 ## The String Type
 
 String的引入解决了string literal的以下缺点：  
@@ -125,13 +127,13 @@ Returning values can also transfer ownership.
 
 A reference is like a pointer in that it’s an address we can follow to access the data stored at that address; that data is owned by some other variable.so reference doesn't change the ownership   
 
-`
+```rust
 fn no_dangle() -> String {
     let s = String::from("hello");
 
     s
 }
-`
+```
 此例中，返回s避免dangling reference，返回&s会发生。虽然此时返回的是s，但heap上的数据不会被复制，不发生深度copy，所有权被转移到调用者。
 ## The Rules of References
 
@@ -1857,6 +1859,7 @@ fn main() {
 
 
 ### Deref Coercion
+
 
 
 
